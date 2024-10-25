@@ -3,7 +3,7 @@
 using namespace std;
 
 int printFirstHalf(int cycles, int num);
-int printBottomHalf(int cycles, int num);
+int printBottomHalf(int cycles, int num, int userInput);
 
 int main()
 {
@@ -19,7 +19,7 @@ int main()
 		topHalf += 1;
 
 	printFirstHalf(topHalf, 1);
-	printBottomHalf(1, userInput - topHalf);
+	printBottomHalf(1, userInput - topHalf, userInput);
 
 	return 0;
 }
@@ -40,9 +40,17 @@ int printFirstHalf(int cycles, int num)
 		return 0;
 }
 
-int printBottomHalf(int cycles, int num)
+int printBottomHalf(int cycles, int num, int userInput)
 {
+	int requiredSpaces = 0;
+
 	for (int s = cycles; s > 0; s--)
+		requiredSpaces += 1;
+
+	if (userInput % 2 == 0)
+		requiredSpaces -= 1;
+
+	for (int i = requiredSpaces; i > 0; i--)
 		cout << " ";
 
 	for (int x = (num * 2) - 1; x > 0; x--)
@@ -51,7 +59,7 @@ int printBottomHalf(int cycles, int num)
 	cout << endl;
 
 	if (num > 1)
-		return printBottomHalf(cycles += 1, num -= 1);
+		return printBottomHalf(cycles += 1, num -= 1, userInput);
 	else
 		return 0;
 }
